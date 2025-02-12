@@ -1,0 +1,221 @@
+/* Сброс базовых отступов */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* 
+     Делаем фон розовым на весь экран (html, body),
+     чтобы не было белых полос при прокрутке.
+  */
+  html, body {
+    width: 100%;
+    height: 100%;
+    background-color: #ffd6e7; /* розовый фон */
+  }
+  
+  /* Основные настройки body:
+     - Шрифт Paytone One
+     - Макс. ширина 390px под iPhone 15
+     - Тёмный цвет для текста (если где-то фон не будет закрыт)
+  */
+  body {
+    font-family: 'Paytone One', sans-serif;
+    max-width: 390px;
+    margin: 0 auto;
+    color: #333;
+  }
+  
+  /* ФИКСИРОВАННЫЙ HEADER c полупрозрачным фоном */
+  .main-header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 6px 16px;
+    background-color: rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+  }
+  
+  .main-header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Список меню (Main, Decision) и цвет текста белый */
+  .main-header ul {
+    list-style: none;
+    display: flex;
+    gap: 16px;
+    font-size: 1rem;
+  }
+  
+  .main-header ul li {
+    color: #fff; /* белый цвет надписей в меню */
+  }
+  
+  /* Ссылки в меню тоже делаем белыми */
+  .main-header ul li a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  /* Кнопка "Contact me" - теперь сделана ссылкой, но стилизуем так же */
+  .contact-btn {
+    font-family: 'Paytone One', sans-serif;
+    cursor: pointer;
+    background-color: #ff5f79;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-decoration: none; /* убираем подчеркивание у ссылки */
+    display: inline-block; /* чтобы работали padding */
+  }
+  
+  /* ПЕРВАЯ СЕКЦИЯ (полная высота экрана) */
+  .section-top {
+    width: 100%;
+    height: 100vh;
+    background: url("media/background_1.png") center/cover no-repeat;
+    position: relative; /* для абсолютного позиционирования картинки sign */
+    padding-top: 50px;  /* чтобы контент не заходил под header */
+  }
+  
+  /* Обёртка под картинку-надпись */
+  .valentine-content {
+    width: 100%;
+    height: 100%; /* чтобы можно было «прилипнуть» к низу */
+    position: relative;
+  }
+  
+  /* Картинка sign: крепим к низу секции */
+  .sign-img {
+    position: absolute;
+    bottom: 20px; /* отступ от низа */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;      /* почти на весь экран */
+    max-width: 350px; /* ограничиваем, чтобы не «вылезала» за край */
+  }
+  
+  /* ВТОРАЯ СЕКЦИЯ (тоже 100vh) */
+  .section-bottom {
+    width: 100%;
+    height: 100vh;
+    background: url("media/background_2.png") center/cover no-repeat;
+    padding: 80px 20px 20px; /* верхний отступ, чтобы не перекрывать шапку */
+    text-align: center;
+    position: relative;
+  }
+  
+  .section-bottom h2 {
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+  
+  /* Кнопки YEAH!!! / NAH( */
+  .buttons {
+    display: inline-flex;
+    gap: 14px;
+  }
+  
+  .buttons button {
+    font-family: 'Paytone One', sans-serif; /* шрифт Paytone One */
+    cursor: pointer;
+    background-color: #ff5f79;
+    border: none;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+  }
+  
+  .buttons button:hover {
+    background-color: #ff3a5b;
+  }
+  
+  /* ОВЕРЛЕЙ (показывается при нажатии на кнопки) */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 999;
+  }
+  
+  .overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  /* Скрытые элементы */
+  .hidden {
+    display: none;
+  }
+  
+  /* Картинки, которые «выплывают» при нажатии */
+  .floating-img {
+    position: absolute;
+    width: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  #floatingImg1 {
+    margin-left: -60px;
+  }
+  #floatingImg2 {
+    margin-left: 60px;
+  }
+  
+  /* Анимация снизу вверх */
+  @keyframes slideUp {
+    from {
+      transform: translateX(-50%) translateY(100vh);
+    }
+    to {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  
+  /* Анимация сверху вниз */
+  @keyframes slideDown {
+    from {
+      transform: translateX(-50%) translateY(-100vh);
+    }
+    to {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  
+  .slide-up {
+    display: block;
+    animation: slideUp 0.9s ease-out forwards;
+  }
+  
+  .slide-down {
+    display: block;
+    animation: slideDown 0.9s ease-out forwards;
+  }
+  
+  /* GIF по центру экрана */
+  .gif-img {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 180px;
+    transform: translate(-50%, -50%);
+  }
+  

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Valentine's Page</title>
+  <!-- Управляем масштабом на мобильных -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Подключаем шрифт Paytone One -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap"
+  >
+  
+  <!-- Подключаем стили -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Полупрозрачный header -->
+<header class="main-header">
+  <nav>
+    <ul>
+      <!-- Ссылка на первую секцию (картинка sign) -->
+      <li><a href="#section-top">Main</a></li>
+
+      <!-- Ссылка на вторую секцию (Will you be my valentine?) -->
+      <li><a href="#section-bottom">Decision</a></li>
+    </ul>
+
+    <!-- Contact me как ссылка на телеграм -->
+    <a class="contact-btn" 
+       href="https://t.me/branur" 
+       target="_blank" 
+       rel="noopener noreferrer">
+       Contact me!
+    </a>
+  </nav>
+</header>
+
+<!-- Первая секция, на весь экран (100vh) -->
+<section class="section-top" id="section-top">
+  <div class="valentine-content">
+    <!-- Картинка-надпись, "прилипшая" к низу секции -->
+    <img class="sign-img" src="media/sign.png" alt="Happy Valentines Day sign" />
+  </div>
+</section>
+
+<!-- Вторая секция, тоже 100vh -->
+<section class="section-bottom" id="section-bottom">
+  <article>
+    <h2>Will you be my valentine?</h2>
+  </article>
+  <div class="buttons">
+    <button id="yesBtn">YEAH!!!</button>
+    <button id="noBtn">NAH(</button>
+  </div>
+</section>
+
+<!-- Оверлей при нажатии на кнопки -->
+<div class="overlay" id="resultOverlay">
+  <img id="floatingImg1" src="" alt="floating 1" class="floating-img hidden" />
+  <img id="floatingImg2" src="" alt="floating 2" class="floating-img hidden" />
+  <img id="gifImg" src="" alt="Reaction GIF" class="gif-img hidden" />
+</div>
+
+<!-- Подключаем новые звуки: yes_sound.mp3 и no_sound.mp3 -->
+<audio id="soundYes" src="media/yes_sound.mp3" preload="auto"></audio>
+<audio id="soundNo" src="media/no_sound.mp3" preload="auto"></audio>
+
+<script>
+  // Получаем элементы из HTML
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+
+  // Новые ID для звуков
+  const soundYes = document.getElementById('soundYes');
+  const soundNo = document.getElementById('soundNo');
+  
+  const resultOverlay = document.getElementById('resultOverlay');
+  const floatingImg1 = document.getElementById('floatingImg1');
+  const floatingImg2 = document.getElementById('floatingImg2');
+  const gifImg = document.getElementById('gifImg');
+
+  // Функция, скрывающая блок с двумя кнопками
+  function hideButtons() {
+    document.querySelector('.buttons').style.display = 'none';
+  }
+
+  // Нажали "YEAH!!!"
+  yesBtn.addEventListener('click', () => {
+    hideButtons();
+    // Попробуем проиграть звук "да"
+    soundYes.play()
+      .catch(err => console.error('Не удалось воспроизвести звук: ', err));
+
+    // Устанавливаем картинки и анимации "slide-up" (всплывают снизу)
+    floatingImg1.src = 'media/yes_pic.png';
+    floatingImg2.src = 'media/yes_pic.png';
+
+    floatingImg1.classList.remove('hidden');
+    floatingImg1.classList.add('slide-up');
+    floatingImg2.classList.remove('hidden');
+    floatingImg2.classList.add('slide-up');
+
+    // Показываем нужный GIF
+    gifImg.src = 'media/yes_gif.gif';
+    gifImg.classList.remove('hidden');
+
+    // Отображаем оверлей
+    resultOverlay.classList.add('show');
+  });
+
+  // Нажали "NAH("
+  noBtn.addEventListener('click', () => {
+    hideButtons();
+    // Попробуем проиграть звук "нет"
+    soundNo.play()
+      .catch(err => console.error('Не удалось воспроизвести звук: ', err));
+
+    floatingImg1.src = 'media/no_pic.png';
+    floatingImg2.src = 'media/no_pic.png';
+
+    floatingImg1.classList.remove('hidden');
+    floatingImg1.classList.add('slide-down');
+    floatingImg2.classList.remove('hidden');
+    floatingImg2.classList.add('slide-down');
+
+    gifImg.src = 'media/no_gif.gif';
+    gifImg.classList.remove('hidden');
+
+    resultOverlay.classList.add('show');
+  });
+</script>
+
+</body>
+</html>
